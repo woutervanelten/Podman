@@ -27,7 +27,8 @@ For podman (and also the unprivileged LXC) there will be user and group mapping.
 This is done in /etc/subuid and /etc/subgid \
 Mine are set username (check with whoami) :65536:65536. \
 `podmanuser:65536:65536` \
-This means that the user and group ID inside the container is increased with 65536 and that will be the user and group ID in the LXC. (So root in container (id 0 ) is id 65536 in the LXC, user 1000 in the container is user 66536 inside the LXC.
+This means that the user and group ID inside the container is increased with 65536 and that will be the user and group ID in the LXC. (So root in container (id 0 ) is id 65536 in the LXC, user 1000 in the container is user 66536 inside the LXC. \
+To get the required user(s) from a pod, you can run: `podman top CONTAINERNAME user huser`
 
  
 # Auto start of services
