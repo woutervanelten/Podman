@@ -21,7 +21,7 @@
 # Folders and files
 Create a working directory. `mkdir -p ~/.config/containers/systemd` 
   
-# Set permissions on folders
+## Set permissions on folders
 Files or folders on you CT that you want to access with the container should have the right user:owner permissions. \
 For podman (and also the unprivileged LXC) there will be user and group mapping. \
 This is done in /etc/subuid and /etc/subgid \
@@ -29,6 +29,12 @@ Mine are set username (check with whoami) :65536:65536. \
 `podmanuser:65536:65536` \
 This means that the user and group ID inside the container is increased with 65536 and that will be the user and group ID in the LXC. (So root in container (id 0 ) is id 65536 in the LXC, user 1000 in the container is user 66536 inside the LXC. \
 To get the required user(s) from a pod, you can run: `podman top CONTAINERNAME user huser`
+
+## Change mapping to allow a specific container user to write to a LXC folder.
+Sometimes there are more users in a container that need to write to mounted folders. \
+For instance in nextcloud. The main user, root, needs access (this is mapped to the rootless user that runs podman in de LXC) and the www-data (33) user needs access. \
+The easyest way to allow this, is to create another mapping on this folder. \
+`podman unshare chown -R 33:0 /mnt/folder/in/your/lxc`
 
  
 # Auto start of services
